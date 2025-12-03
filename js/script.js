@@ -56,4 +56,24 @@ welcomeScreen.addEventListener("click", () => {
 
     // Ocultar pantalla de bienvenida
     welcomeScreen.classList.add("hidden");
+    // 🔔 ENVIAR NOTIFICACIÓN A TU CORREO
+    enviarVisita();
 });
+// =========🔔 ENVIAR VISITA A FORMSPREE =========
+function enviarVisita() {
+  fetch("https://formspree.io/f/xgvgzwvz", { // 👈 PON AQUÍ TU URL
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      pagina: window.location.href,
+      userAgent: navigator.userAgent,
+      fecha: new Date().toISOString()
+    })
+  }).catch((err) => {
+    console.error("Error enviando visita:", err);
+  });
+}
+
